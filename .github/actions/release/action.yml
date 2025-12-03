@@ -10,7 +10,7 @@ runs:
         [Revanced](https://github.com/revanced/revanced-patches/releases)
         "> ${{ github.workspace }}-CHANGELOG.txt
     - name: Release
-      uses: ncipollo/release-action@v1.14.0
+      uses: ncipollo/release-action@b7eabc95ff50cbeeedec83973935c8f306dfcd0b # v1.20.0
       with:
         artifacts: |
           ./release/*.apk
