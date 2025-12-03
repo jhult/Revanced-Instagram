@@ -7,7 +7,7 @@ wget -q -O ./pup.zip https://github.com/ericchiang/pup/releases/download/v0.4.0/
 unzip "./pup.zip" -d "./" > /dev/null 2>&1
 pup="./pup"
 #Setup APKEditor for install combine split apks
-wget -q -O ./APKEditor.jar https://github.com/REAndroid/APKEditor/releases/download/V1.4.2/APKEditor-1.4.2.jar
+wget -q -O ./APKEditor.jar https://github.com/REAndroid/APKEditor/releases/download/V1.4.5/APKEditor-1.4.5.jar
 APKEditor="./APKEditor.jar"
 
 #################################################
@@ -116,7 +116,7 @@ get_patches_key() {
 				excludePatches+=" -e \"$line1\""
 				excludeLinesFound=true
 			done < src/patches/$1/exclude-patches
-			
+
 			while IFS= read -r line2; do
 				includePatches+=" -i \"$line2\""
 				includeLinesFound=true
@@ -174,7 +174,7 @@ get_apk() {
 			x86) url_regexp='x86'"[^@]*$7"''"[^@]*$6"'</div>[^@]*@\([^"]*\)' ;;
 			x86_64) url_regexp='x86_64'"[^@]*$7"''"[^@]*$6"'</div>[^@]*@\([^"]*\)' ;;
 			*) url_regexp='$5'"[^@]*$7"''"[^@]*$6"'</div>[^@]*@\([^"]*\)' ;;
-		esac 
+		esac
 	fi
 	if [ -z "$version" ] && [ "$lock_version" != "1" ]; then
 		if [[ $(ls revanced-cli-*.jar) =~ revanced-cli-([0-9]+) ]]; then
@@ -334,7 +334,7 @@ patch() {
 		unset lock_version
 		unset excludePatches
 		unset includePatches
-	else 
+	else
 		red_log "[-] Not found $1.apk"
 		exit 1
 	fi
