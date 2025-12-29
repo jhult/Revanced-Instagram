@@ -59,6 +59,6 @@ I’m so sorry about this, but my repository only patches apps from “scripts�
 
 ### Q: How do I know these apps are safe to use?
 
-You can rest assured that it’s safe because my code is 100% open-source and uses GitHub Actions to patch the apps. The apk files used for patching are downloaded from the trusted site “APKMirror”.
+You can rest assured that it's safe because my code is 100% open-source and uses GitHub Actions to patch the apps. The apk files used for patching are downloaded from the trusted site [APKPure](https://apkpure.com) using their API.
 
 ----

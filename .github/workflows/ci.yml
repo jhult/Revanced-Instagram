@@ -80,8 +80,24 @@ jobs:
       - name: Check new patch Revanced Experiments
         id: check-Revanced-Experiments
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh Aunali321/ReVancedExperiments latest telegram-revanced-experiments.apk 
-      - name: Re-run workflow if github connection not stable
+        run: bash src/etc/ci.sh Aunali321/ReVancedExperiments latest telegram-revanced-experiments.apk
+      - name: Check new patch Instafel
+        id: check-instafel
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh mubang/instafel-patches latest instagram-instafel.apk
+      - name: Check new patch Revanced Liso
+        id: check-revanced-liso
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh revanced/revanced-patches latest youtube-revanced-liso.apk
+       - name: Check new patch Scrazzz
+         id: check-scrazzz
+         if: steps.check-gh.outputs.internet_error == '0'
+         run: bash src/etc/ci.sh scrazzz/revanced-patches latest youtube-scrazzz.apk
+        - name: Check new patch Dropped Patches
+          id: check-dropped-patches
+          if: steps.check-gh.outputs.internet_error == '0'
+          run: bash src/etc/ci.sh indrastorms/revanced-patches latest youtube-dropped-patches.apk
+       - name: Re-run workflow if github connection not stable
         if: always() && steps.check-rv.outcome == 'skipped' && env.retry_count < env.max_retries
         uses: actions/github-script@v7
         with:
@@ -120,6 +136,10 @@ jobs:
       check_rve5: ${{ steps.check-rve5.outputs.new_patch }}
       check_BiliRoamingM: ${{ steps.check-BiliRoamingM.outputs.new_patch }}
       check_Revanced_Experiments: ${{ steps.check-Revanced-Experiments.outputs.new_patch }}
+      check_instafel: ${{ steps.check-instafel.outputs.new_patch }}
+      check_revanced_liso: ${{ steps.check-revanced-liso.outputs.new_patch }}
+      check_scrazzz: ${{ steps.check-scrazzz.outputs.new_patch }}
+      check_dropped_patches: ${{ steps.check-dropped-patches.outputs.new_patch }}
 
   Patch-Revanced:
     name: Patch Revanced Stable
@@ -127,102 +147,130 @@ jobs:
     if: ${{ needs.check.outputs.check_rv == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced"
+      variant: "revanced"
   Patch-Revanced-Beta:
     name: Patch Revanced Beta
     needs: check
     if: ${{ needs.check.outputs.check_rv_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Beta"
+      variant: "revanced-beta"
   Patch-Morphe:
     name: Patch Morphe
     needs: check
     if: ${{ needs.check.outputs.check_morphe == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Morphe"
+      variant: "morphe"
   Patch-Morphe-Beta:
     name: Patch Morphe Beta
     needs: check
     if: ${{ needs.check.outputs.check_morphe_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Morphe Beta"
+      variant: "morphe-beta"
   Patch-RVE-anddea-stable:
     name: Patch RVX Anddea Stable
     needs: check
     if: ${{ needs.check.outputs.check_rve_anddea_stable == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "RVE-anddea-stable"
+      variant: "rve-anddea-stable"
   Patch-RVE-anddea-beta:
     name: Patch RVX Anddea Beta
     needs: check
     if: ${{ needs.check.outputs.check_rve_anddea_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "RVE-anddea-beta"
+      variant: "rve-anddea-beta"
   Patch-Revanced-Extended:
     name: Patch Revanced Extended
     needs: check
     if: ${{ needs.check.outputs.check_rve == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Extended"
+      variant: "revanced-extended"
   Patch-Revanced-Extended-Beta:
     name: Patch Revanced Extended Beta
     needs: check
     if: ${{ needs.check.outputs.check_rve_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Extended Beta"
+      variant: "revanced-extended-beta"
   Patch-Revanced-Extended-Arsclib:
     name: Patch Revanced Extended Arsclib
     needs: check
     if: ${{ needs.check.outputs.check_rve_arsclib == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Extended Arsclib"
+      variant: "revanced-extended-arsclib"
   Patch-Twitter-Piko-Stable:
     name: Patch Twitter Piko Stable
     needs: check
     if: ${{ needs.check.outputs.check_twitter_piko_stable == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Twitter Piko Stable"
+      variant: "piko-stable"
   Patch-Twitter-Piko-Beta:
     name: Patch Twitter Piko Beta
     needs: check
     if: ${{ needs.check.outputs.check_twitter_piko_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Twitter Piko Beta"
+      variant: "piko-beta"
   Patch-Revanced-Extended-For-Android-6-7:
     name: Patch RVX Android 6 & 7
     needs: check
     if: ${{ needs.check.outputs.check_rve67 == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Extended Android 6,7"
+      variant: "revanced-extended-android67"
   Patch-Revanced-Extended-For-Android-5:
     name: Patch RVX Android 5
     needs: check
     if: ${{ needs.check.outputs.check_rve5 == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Extended Android 5"
+      variant: "revanced-extended-android5"
   Patch-BiliRoamingM:
     name: Patch BiliRoamingM
     needs: check
     if: ${{ needs.check.outputs.check_BiliRoamingM == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "BiliRoamingM"
+      variant: "biliroamingm"
   Patch-Revanced-Experiments:
     name: Patch Revanced Experiments
     needs: check
     if: ${{ needs.check.outputs.check_Revanced_Experiments == 1 }}
     uses: ./.github/workflows/manual-patch.yml
     with:
-      org: "Revanced Experiments"
+      variant: "revanced-experiments"
+  Patch-Instafel:
+    name: Patch Instafel
+    needs: check
+    if: ${{ needs.check.outputs.check_instafel == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    with:
+      variant: "instafel"
+  Patch-Revanced-Liso:
+    name: Patch Revanced Liso
+    needs: check
+    if: ${{ needs.check.outputs.check_revanced_liso == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    with:
+      variant: "revanced-liso"
+  Patch-Scrazzz:
+    name: Patch Scrazzz
+    needs: check
+    if: ${{ needs.check.outputs.check_scrazzz == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    with:
+      variant: "scrazzz"
+  Patch-Dropped-Patches:
+    name: Patch Dropped Patches
+     needs: check
+    if: ${{ needs.check.outputs.check_dropped_patches == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    with:
+      variant: "dropped-patches"
